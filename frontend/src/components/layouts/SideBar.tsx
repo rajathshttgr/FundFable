@@ -13,7 +13,7 @@ export const SideBar = () => {
     <div className="flex flex-col h-[calc(100vh-4.5rem)] sm:fixed">
       <div className="m-6">
         <div
-          className="flex sm:w-55 w-12 h-10 m-2 p-2 bg-amber-50 hover:bg-amber-300 rounded-md cursor-pointer"
+          className="flex sm:w-55 w-12 h-10 m-2 p-2 hover:bg-amber-50 bg-amber-300 rounded-md cursor-pointer"
           onClick={() => router.push("/dashboard/")}
         >
           <IoHomeOutline className="m-1 mx-2" />

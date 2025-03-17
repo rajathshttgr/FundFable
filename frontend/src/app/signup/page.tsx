@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import logo from "../../assets/icons/coffee-cup-logo.png";
 import { FcOk } from "react-icons/fc";
@@ -7,7 +8,23 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const router = useRouter();
-  const errorMssg = "Please enter a username between 4 and 25 characters";
+  const errorMssg = "Please enter a username between 5 and 20 characters";
+  const existing = "rajath18";
+
+  const [username, setUsername] = useState("");
+
+  const checkValidity = () => {
+    const regexp = /^[a-z0-9_\.]{5,20}$/;
+    return regexp.test(username.toLocaleLowerCase());
+  };
+
+  const checkUsername = () => {
+    if (!checkValidity()) return 1;
+    if (username == existing) return 2;
+
+    return 0;
+  };
+
   return (
     <div className="flex flex-row h-screen">
       <div className="h-screen sm:w-1/3 w-0 bg-amber-400">
@@ -43,18 +60,32 @@ export default function Page() {
               <p className="text-gray-500 px-2">
                 Choose an username for your page.
               </p>
-              <div className="flex px-2 m-2 mt-4 h-12 sm:w-1/2 w-96 bg-gray-200 rounded-xl focus-within:ring-1 focus-within:ring-black">
+              <div
+                className={`flex px-2 m-2 mt-4 h-12 sm:w-1/2 w-96 bg-gray-200 rounded-xl focus-within:ring-1 ${
+                  username
+                    ? checkUsername()
+                      ? "focus-within:ring-red-500"
+                      : "focus-within:ring-green-500"
+                    : "focus-within:ring-black"
+                }`}
+              >
                 <p className="py-3 pl-1">buymeachai.com/u/</p>
                 <input
                   type="text"
                   placeholder="username"
                   className="outline-none bg-transparent ml-1"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <div className="py-3 ml-auto">
                   <FcOk className="h-5 w-5 " />
                 </div>
               </div>
-              <div className="hidden px-3 text-xs text-red-600">
+              <div
+                className={`px-3 text-xs text-red-600 ${
+                  username ? (checkValidity() ? "hidden" : "") : "hidden"
+                }`}
+              >
                 {errorMssg}
               </div>
               <div className="sm:hidden flex flex-col justify-between border-gray-200  mt-8">
