@@ -39,7 +39,7 @@ export default function Page() {
                 className="w-96 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
                 placeholder="Password"
               />
-              <button className="bg-amber-400 w-96 h-12 rounded-3xl m-2 mt-6 shadow font-medium text-white cursor-pointer hover:bg-amber-500">
+              <button className="bg-amber-300 w-96 h-12 rounded-3xl m-2 mt-6 shadow font-medium text-white cursor-pointer hover:bg-amber-400">
                 login
               </button>
             </form>

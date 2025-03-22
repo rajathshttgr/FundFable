@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col h-screen">
-        <header className="flex justify-between px-6">
+        <header className="flex justify-between px-6 border-b border-gray-200">
           <div className="flex">
             <Image
               src={logo}
@@ -25,13 +25,13 @@ export default function Home() {
 
           <div className="m-4 flex">
             <div
-              className="p-2 mx-4 rounded-xl shadow hover:bg-amber-500 border border-amber-400 cursor-pointer"
+              className="p-2 mx-4 rounded-xl shadow hover:border-amber-400 border border-amber-200 cursor-pointer"
               onClick={() => router.push("/signup")}
             >
               Sign Up
             </div>
             <div
-              className="p-2 px-3 rounded-xl shadow bg-amber-400 hover:bg-amber-500 ursor-pointer"
+              className="p-2 px-3 rounded-xl shadow bg-amber-300 hover:bg-amber-400 ursor-pointer"
               onClick={() => router.push("/login")}
             >
               Sign In
@@ -50,7 +50,7 @@ export default function Home() {
           </p>
           <div className="flex justify-center">
             <a
-              className="h-12 mt-4 p-2 bg-amber-400 hover:bg-amber-500 w-40 text-center rounded-lg text-xl font-medium shadow cursor-pointer"
+              className="h-12 mt-4 p-2 bg-amber-300 hover:bg-amber-400 w-40 text-center rounded-lg text-xl font-medium shadow cursor-pointer"
               onClick={() => router.push("/signup")}
             >
               Start my Page
