@@ -60,7 +60,15 @@ export const CheckoutCard = () => {
               <input
                 type="text"
                 placeholder="10"
-                className="h-12 w-12 mt-4 p-3 border border-gray-200 m-1 rounded-md"
+                className="h-12 w-12 mt-4 p-3 border border-amber-400 m-1 rounded-md outline-amber-400 "
+                onChange={(e) => {
+                  const value = parseInt(e.target.value, 10);
+                  if (value >= 1 && value <= 20) {
+                    setCups(value);
+                  } else {
+                    setCups(1);
+                  }
+                }}
               />
             </div>
           </div>
