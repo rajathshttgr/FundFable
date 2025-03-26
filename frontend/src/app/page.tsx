@@ -50,7 +50,7 @@ export default function Home() {
           </p>
           <div className="flex justify-center">
             <a
-              className="h-12 mt-4 p-2 bg-amber-300 hover:bg-amber-400 w-40 text-center rounded-lg text-xl font-medium shadow cursor-pointer"
+              className="h-12 mt-4 p-2 hover:text-white bg-amber-300 hover:bg-amber-400 w-40 text-center rounded-lg text-xl font-medium shadow cursor-pointer"
               onClick={() => router.push("/signup")}
             >
               Start my Page

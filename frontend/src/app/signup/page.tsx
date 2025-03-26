@@ -74,6 +74,7 @@ export default function Page() {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    alert("we are here about to register");
     axios
       .post("http://localhost:3000/api/auth/register", {
         name: { fullname },
