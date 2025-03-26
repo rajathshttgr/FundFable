@@ -25,16 +25,16 @@ export default function Home() {
 
           <div className="m-4 flex">
             <div
-              className="p-2 mx-4 rounded-xl shadow hover:border-amber-400 border border-amber-200 cursor-pointer"
-              onClick={() => router.push("/signup")}
-            >
-              Sign Up
-            </div>
-            <div
-              className="p-2 px-3 rounded-xl shadow bg-amber-300 hover:bg-amber-400 ursor-pointer"
+              className="p-2 mx-4  rounded-xl shadow hover:border-amber-400 border border-amber-200 cursor-pointer "
               onClick={() => router.push("/login")}
             >
               Sign In
+            </div>
+            <div
+              className="p-2 px-3  rounded-xl shadow bg-amber-300 hover:bg-amber-400 cursor-pointer"
+              onClick={() => router.push("/signup")}
+            >
+              Sign Up
             </div>
           </div>
         </header>
