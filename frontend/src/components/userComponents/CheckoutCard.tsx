@@ -62,7 +62,7 @@ export const CheckoutCard = () => {
                 placeholder="10"
                 className="h-12 w-12 mt-4 p-3 border border-amber-400 m-1 rounded-md outline-amber-400 "
                 onChange={(e) => {
-                  const value = parseInt(e.target.value, 10);
+                  const value = parseInt(e.target.value);
                   if (value >= 1 && value <= 20) {
                     setCups(value);
                   } else {
@@ -82,12 +82,12 @@ export const CheckoutCard = () => {
           <div className="h-48 m-2 py-2  rounded-md  bg-white focus-within:ring-1 focus-within:ring-black">
             <input
               type="text"
-              className="border-none outline-none p-2"
+              className="border-none outline-none p-2 "
               placeholder="Say something Nice..."
             />
           </div>
           <div className=" h-14 mx-2 mt-6 p-2 py-4 bg-amber-400 hover:bg-amber-500 rounded-2xl text-xl font-semibold text-white text-center items-center cursor-pointer">
-            <button>Support ₹{amount}</button>
+            <button className="cursor-pointer">Support ₹{amount}</button>
           </div>
         </div>
       </div>

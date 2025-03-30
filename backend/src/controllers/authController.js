@@ -1,8 +1,10 @@
 import { createUserAuthService } from "../models/authModel.js";
 import { findUserByUsername } from "../models/authModel.js";
+import { findUserByEmail } from "../models/authModel.js";
+import { validatePassword } from "../models/authModel.js";
 
 // Standardized response function
-const handleResponse = (res, status, message, data = NULL) => {
+const handleResponse = (res, status, message, data = null) => {
   res.status(status).json({
     status,
     message,
@@ -25,6 +27,25 @@ export const createUserAuth = async (req, res, next) => {
   }
 };
 
+export const userLoginAuth = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const user = await findUserByEmail(email);
+    if (!user) {
+      handleResponse(res, 404, "User not found");
+    } else {
+      const isMatch = await validatePassword(email, password);
+      if (isMatch) {
+        handleResponse(res, 200, "Login Successful", { jwtToken: "TOKEN2025" });
+      } else {
+        handleResponse(res, 401, "Invalid credentials");
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const checkUsernameExists = async (req, res, next) => {
   const { username } = req.params;
   console.log(username);
@@ -39,6 +60,22 @@ export const checkUsernameExists = async (req, res, next) => {
       handleResponse(res, 200, "Username doesn't exists", { exists: false });
     }
   } catch (err) {
+    next(err);
+  }
+};
+
+export const checkEmailExists = async (req, res, next) => {
+  const { email } = req.params;
+  console.log(email);
+
+  try {
+    const user = await findUserByEmail(email);
+    if (user) {
+      handleResponse(res, 200, "Email already exits", { exists: true });
+    } else {
+      handleResponse(res, 200, "Email doesn't exists", { exists: false });
+    }
+  } catch (error) {
     next(err);
   }
 };

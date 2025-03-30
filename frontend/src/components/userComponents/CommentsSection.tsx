@@ -22,7 +22,7 @@ const CommentCard = ({ username, comment, support }: CommentCardProps) => {
           </div>
         </div>
       </div>
-      <div className="mt-2">
+      <div className="mt-2 cursor-pointer">
         <IoIosMore />
       </div>
     </div>

@@ -74,13 +74,29 @@ export default function Page() {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    alert("we are here about to register");
+
+    try {
+      console.log(email);
+
+      const response = await fetch(
+        `http://localhost:3000/api/auth/check-email/${email}`
+      );
+      const data = await response.json();
+      if (data.data.exists) {
+        setIsValid(false);
+        toast.error("Email already exists, try Login instead");
+        return;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
     axios
       .post("http://localhost:3000/api/auth/register", {
-        name: { fullname },
-        email: { email },
-        username: { username },
-        password: { password },
+        name: fullname,
+        email: email,
+        username: username,
+        password: password,
       })
       .then((response) => console.log("Success:", response.data))
       .catch((error) => console.error("Error:", error));
@@ -197,7 +213,9 @@ export default function Page() {
                 />
                 <input
                   type="email"
-                  className="w-96 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
+                  className={`w-96 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm ${
+                    isValid ? "" : "border-red-500 border"
+                  }`}
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

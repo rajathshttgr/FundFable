@@ -10,7 +10,7 @@ import validateUser from "../middlewares/inputValidator.js";
 
 const router = express.Router();
 
-router.post("/user", validateUser, createUser);
+router.post("/user", createUser);
 router.get("/user", getAllUsers);
 router.get("/user/:id", getUserById);
 router.put("/user/:id", validateUser, updateUser);
