@@ -1,11 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import logo from "../../assets/icons/coffee-cup-logo.png";
-import { VscMenu } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import AuthContext from "../../contexts/authContext";
+import profilepic from "../../assets/images/profilepic.png";
+import toast from "react-hot-toast";
 
 export const Navbar = () => {
   const router = useRouter();
+  const { logout } = useContext(AuthContext);
+
   return (
     <header className="flex justify-between px-6 border-b border-gray-200 bg-white fixed top-0 left-0 right-0">
       <div className="flex">
@@ -23,10 +28,22 @@ export const Navbar = () => {
       </div>
 
       <div className="flex">
-        <div className="sm:flex hidden my-4 mx-1">
-          <div className="w-10 h-10 mt-1 rounded-full bg-amber-200"></div>
+        <div
+          className="flex my-4 mx-1 cursor-pointer"
+          onClick={() => {
+            logout();
+            toast.success("Logged out successfully!");
+          }}
+        >
+          <div className="mt-2 p-1 font-medium">LogOut</div>
+          <div className="w-10 h-10 mt-1 rounded-full bg-amber-200">
+            <Image
+              src={profilepic}
+              alt="Profile"
+              className="h-full w-full rounded-full object-cover"
+            />
+          </div>
         </div>
-        <VscMenu className="my-5 h-8 w-8" />
       </div>
     </header>
   );

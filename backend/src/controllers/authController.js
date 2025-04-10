@@ -1,7 +1,8 @@
-import { createUserAuthService } from "../models/authModel.js";
-import { findUserByUsername } from "../models/authModel.js";
-import { findUserByEmail } from "../models/authModel.js";
-import { validatePassword } from "../models/authModel.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { createUserService } from "../models/userModel.js";
+import { findUserByEmail } from "../models/userModel.js";
+import { findUserByUsername } from "../models/userModel.js";
 
 // Standardized response function
 const handleResponse = (res, status, message, data = null) => {
@@ -12,35 +13,54 @@ const handleResponse = (res, status, message, data = null) => {
   });
 };
 
-export const createUserAuth = async (req, res, next) => {
+export const createUser = async (req, res, next) => {
   const { name, email, username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
   try {
-    const newUser = await createUserAuthService(
+    const newUser = await createUserService(
       name,
       email,
       username,
-      password
+      hashedPassword
     );
-    handleResponse(res, 201, "Registration successfully", newUser);
+    if (newUser) {
+      try {
+        const user = await findUserByEmail(email);
+        const token = jwt.sign(
+          { id: user.user_id, username: user.username },
+          process.env.JWT_SECRET,
+          { expiresIn: "1h" }
+        );
+        handleResponse(res, 201, "Registration successfully", { token });
+      } catch (error) {
+        next(error);
+      }
+    }
   } catch (err) {
     next(err);
   }
 };
 
-export const userLoginAuth = async (req, res, next) => {
+export const userLogin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await findUserByEmail(email);
     if (!user) {
-      handleResponse(res, 404, "User not found");
-    } else {
-      const isMatch = await validatePassword(email, password);
-      if (isMatch) {
-        handleResponse(res, 200, "Login Successful", { jwtToken: "TOKEN2025" });
-      } else {
-        handleResponse(res, 401, "Invalid credentials");
-      }
+      handleResponse(res, 404, `User with email ${email} not found`);
     }
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      handleResponse(res, 400, "Invalid credentials");
+    }
+
+    const token = jwt.sign(
+      { id: user.user_id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    handleResponse(res, 201, "login successfully", { token });
   } catch (error) {
     next(error);
   }
@@ -77,5 +97,21 @@ export const checkEmailExists = async (req, res, next) => {
     }
   } catch (error) {
     next(err);
+  }
+};
+
+export const getUsername = async (req, res) => {
+  const decodedUser = req.decodedUser;
+  if (decodedUser) {
+    res.status(200).json({
+      status: 200,
+      message: "User data retrieved successfully",
+      data: decodedUser,
+    });
+  } else {
+    res.status(400).json({
+      status: 400,
+      message: "Failed to retrieve user data",
+    });
   }
 };

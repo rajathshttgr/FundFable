@@ -1,7 +1,6 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Image from "next/image";
-import axios from "axios";
 import logo from "../../assets/icons/coffee-cup-logo.png";
 import { FcOk } from "react-icons/fc";
 import { ImSpinner8 } from "react-icons/im";
@@ -9,8 +8,11 @@ import { HiMiniXMark } from "react-icons/hi2";
 import { useRouter } from "next/navigation";
 import SocialLogin from "@/components/auth/SocialLogin";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../../config.js";
+import AuthContext from "@/contexts/authContext";
 
 export default function Page() {
+  const { register } = useContext(AuthContext);
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
@@ -34,11 +36,11 @@ export default function Page() {
 
   const validateUsername = async (username: string) => {
     const regexp = /^[a-z0-9]{5,20}$/;
-    if (regexp.test(username.toLowerCase())) {
+    if (regexp.test(username)) {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `http://localhost:3000/api/auth/check-username/${username}`
+          `${BASE_URL}/auth/check-username/${username}`
         );
         const data = await response.json();
         setIsLoading(false);
@@ -78,32 +80,18 @@ export default function Page() {
     try {
       console.log(email);
 
-      const response = await fetch(
-        `http://localhost:3000/api/auth/check-email/${email}`
-      );
+      const response = await fetch(`${BASE_URL}/auth/check-email/${email}`);
       const data = await response.json();
       if (data.data.exists) {
         setIsValid(false);
         toast.error("Email already exists, try Login instead");
         return;
+      } else {
+        await register(fullname, email, username, password);
       }
     } catch (error) {
       console.error("Error:", error);
     }
-
-    axios
-      .post("http://localhost:3000/api/auth/register", {
-        name: fullname,
-        email: email,
-        username: username,
-        password: password,
-      })
-      .then((response) => console.log("Success:", response.data))
-      .catch((error) => console.error("Error:", error));
-    toast.success("Account Created Successfully");
-    setTimeout(() => {
-      router.push("/login");
-    }, 2000);
   };
 
   return (
@@ -158,7 +146,7 @@ export default function Page() {
                   placeholder="username"
                   className="outline-none bg-transparent ml-1"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value.toLowerCase())}
                 />
                 <div className="py-3 ml-auto">
                   {isLoading ? (

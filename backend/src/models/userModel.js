@@ -1,31 +1,29 @@
 import pool from "../config/db.js";
 
-export const getAllUsersService = async () => {
-  const result = await pool.query("SELECT * FROM users");
-  return result.rows;
+export const createUserService = async (name, email, username, password) => {
+  try {
+    const result = await pool.query(
+      "INSERT INTO users (name, email, username, password) VALUES ($1, $2, $3, $4) RETURNING *",
+      [name, email, username, password]
+    );
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error inserting user:", error);
+    throw error;
+  }
 };
-export const getUserByIdService = async (id) => {
-  const result = await pool.query("SELECT * FROM users where id = $1", [id]);
+
+export const findUserByEmail = async (email) => {
+  const result = await pool.query("SELECT * FROM users WHERE email =$1", [
+    email,
+  ]);
   return result.rows[0];
 };
-export const createUserService = async (name, email) => {
+
+export const findUserByUsername = async (username) => {
   const result = await pool.query(
-    "INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *",
-    [name, email]
-  );
-  return result.rows[0];
-};
-export const updateUserService = async (id, name, email) => {
-  const result = await pool.query(
-    "UPDATE users SET name=$1, email=$2 WHERE id=$3 RETURNING *",
-    [name, email, id]
-  );
-  return result.rows[0];
-};
-export const deleteUserService = async (id) => {
-  const result = await pool.query(
-    "DELETE FROM users WHERE id = $1 RETURNING *",
-    [id]
+    "SELECT user_id, name, email, username, created_at FROM users WHERE username = $1",
+    [username]
   );
   return result.rows[0];
 };

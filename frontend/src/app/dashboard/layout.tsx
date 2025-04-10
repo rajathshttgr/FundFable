@@ -9,17 +9,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col h-screen">
-      <div>
-        <Navbar />
-      </div>
-
-      <div className="flex w-lvw mt-18 flex-1">
-        <div className="sm:w-72 w-30 border-r border-gray-200 ">
-          <SideBar />
+    <>
+      <div className="flex flex-col h-screen">
+        <div>
+          <Navbar />
         </div>
-        <div className="flex-1">{children}</div>
+
+        <div className="flex w-lvw mt-18 flex-1">
+          <div className="sm:w-72 w-30 border-r border-gray-200 ">
+            <SideBar />
+          </div>
+          <div className="flex-1">{children}</div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

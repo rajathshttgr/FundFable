@@ -64,7 +64,7 @@ export const SideBar = () => {
         </div>
       </div>
       <div className="flex-1"></div>
-      <div className="sm:flex hidden h-12 justify-center border-t border-gray-200 cursor-pointer">
+      <div className="sm:flex hidden h-16 justify-center border-t border-gray-200 cursor-pointer">
         <MdKeyboardDoubleArrowLeft
           className="h-6 w-6 mt-2"
           onClick={() => {
@@ -72,7 +72,7 @@ export const SideBar = () => {
           }}
         />
       </div>
-      <div className="sm:hidden flex h-12 justify-center border-t border-gray-200">
+      <div className="sm:hidden flex h-16 justify-center border-t border-gray-200">
         <MdKeyboardDoubleArrowRight
           className="h-6 w-6 mt-2"
           onClick={() => {

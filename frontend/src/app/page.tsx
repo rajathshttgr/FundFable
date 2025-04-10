@@ -38,7 +38,6 @@ export default function Home() {
             </div>
           </div>
         </header>
-
         <main className="flex-1 ">
           <p className="font-extrabold sm:text-6xl text-5xl text-center mt-24">
             Fund your Creative Work
@@ -57,8 +56,8 @@ export default function Home() {
             </a>
           </div>
         </main>
-        <footer className="text-center text-gray-600">
-          Rajath Shettigar | 2025
+        <footer className="absolute bottom-4 w-full text-center text-sm text-gray-600">
+          © 2025 Rajath Shettigar
         </footer>
       </div>
     </>

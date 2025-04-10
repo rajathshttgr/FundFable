@@ -1,46 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Image from "next/image";
-import axios from "axios";
+
 import SocialLogin from "@/components/auth/SocialLogin";
 import logo from "../../assets/icons/coffee-cup-logo.png";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+
+import AuthContext from "@/contexts/authContext";
 
 export default function Page() {
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
-
-      if (response.status === 200 && response.data?.data?.jwtToken) {
-        localStorage.setItem("jwtToken", response.data?.data?.jwtToken);
-        console.log("Success:", response.data);
-        toast.success("Login successful! Redirecting to dashboard...");
-
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 2000);
-      } else {
-        toast.error(
-          response.data?.message || "Login failed. Please try again."
-        );
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error("Login failed. Please check your credentials.");
-    }
+    await login(email, password);
   };
 
   return (

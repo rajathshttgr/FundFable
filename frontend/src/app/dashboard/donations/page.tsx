@@ -1,15 +1,14 @@
 import React from "react";
-import Image from "next/image";
-import underconstruction from "../../../assets/backgrounds/underConstruction.jpg";
+import { Donations } from "@/components/dashboard/donations";
 
 const page = () => {
+  const username = "rajathshttgr"; // Replace with actual username from context or props
   return (
-    <div className="flex justify-center">
-      <Image
-        src={underconstruction}
-        className="m-2 h-96 w-96"
-        alt="Coffee cup logo"
-      />
+    <div
+      className="overflow-y-auto"
+      style={{ maxHeight: "calc(100vh - 80px)" }}
+    >
+      <Donations username={username} />
     </div>
   );
 };
