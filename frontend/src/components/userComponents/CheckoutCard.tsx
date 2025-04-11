@@ -42,21 +42,28 @@ export const CheckoutCard = ({ creator }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    const response = await axios.post(`${BASE_URL}/profile/transaction`, {
-      user_id: creatorId,
-      supporter_name: supporter_name,
-      supporter_message: supporter_message,
-      amount: amount,
-    });
-    setIsLoading(false);
-    if (response.data.status === 201) {
-      toast.success("Thanks for the support!");
-      setSupporter_name("");
-      setSupporter_message("");
-      setCups(1);
-    } else {
-      toast.error("Transaction failed. Please try again.");
+    try {
+      setIsLoading(true);
+      const response = await axios.post(`${BASE_URL}/profile/transaction`, {
+        user_id: creatorId,
+        supporter_name: supporter_name,
+        supporter_message: supporter_message,
+        amount: amount,
+      });
+      setIsLoading(false);
+      if (response.data.status === 201) {
+        toast.success("Thanks for the support!");
+        setSupporter_name("");
+        setSupporter_message("");
+        setCups(1);
+      } else {
+        toast.error("Transaction failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 

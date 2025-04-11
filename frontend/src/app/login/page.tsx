@@ -6,10 +6,10 @@ import SocialLogin from "@/components/auth/SocialLogin";
 import logo from "../../assets/icons/coffee-cup-logo.png";
 import { useRouter } from "next/navigation";
 
-import AuthContext from "@/contexts/authContext";
+import { useAuth } from "@/contexts/authContext";
 
 export default function Page() {
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

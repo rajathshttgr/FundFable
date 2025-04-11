@@ -8,19 +8,23 @@ import Image from "next/image";
 import axios from "axios";
 import { BASE_URL } from "../../config";
 import { BASE_URL_USER } from "../../config";
-import toast from "react-hot-toast";
 
-export const ProfileSummary = ({ username }) => {
+interface ProfileSummaryProps {
+  username: string;
+}
+
+export const ProfileSummary = ({ username }: ProfileSummaryProps) => {
+  const tempUsername = username;
   const [fullName, setFullName] = useState("Example Name");
-  const [userName, setUserName] = useState("example");
   const [amount, setAmount] = useState(300.0);
 
   useEffect(() => {
+    if (!tempUsername) return;
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `${BASE_URL}/dashboard/profiledata/${username}`,
+          `${BASE_URL}/dashboard/profiledata/${tempUsername}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -29,7 +33,6 @@ export const ProfileSummary = ({ username }) => {
         );
         if (response.data.data) {
           setFullName(response.data.data.name);
-          setUserName(response.data.data.username);
           setAmount(response.data.data.amount);
         } else {
           console.log("Records not found");
@@ -39,8 +42,8 @@ export const ProfileSummary = ({ username }) => {
       }
     };
 
-    fetchData();
-  }, []);
+    if (tempUsername) fetchData();
+  }, [tempUsername]);
 
   const sharepage = () => {
     if (navigator.share) {
@@ -71,9 +74,11 @@ export const ProfileSummary = ({ username }) => {
               />
             </div>
             <div className="sm:m-4 my-2 pl-1 ">
-              <p className="sm:text-3xl text-lg font-bold">Hi, {fullName}</p>
+              <p className="sm:text-3xl text-lg font-bold">
+                Hi, {fullName.split(" ")[0]}
+              </p>
               <p className="text-gray-500 sm:text-xl text-xs">
-                {BASE_URL_USER}/u/{userName}
+                {BASE_URL_USER}/u/{username}
               </p>
             </div>
           </div>

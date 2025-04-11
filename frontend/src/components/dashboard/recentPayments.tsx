@@ -60,7 +60,11 @@ const PaymentsCard = ({
   );
 };
 
-export const RecentPayments = ({ username }) => {
+interface RecentPaymentsProps {
+  username: string;
+}
+
+export const RecentPayments = ({ username }: RecentPaymentsProps) => {
   const [recentPayments, setRecentPayments] = useState([]);
 
   useEffect(() => {

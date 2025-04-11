@@ -1,8 +1,10 @@
+"use client";
 import React from "react";
 import { Donations } from "@/components/dashboard/donations";
+import { useAuth } from "@/contexts/authContext";
 
-const page = () => {
-  const username = "rajathshttgr"; // Replace with actual username from context or props
+const Page = () => {
+  const { username } = useAuth();
   return (
     <div
       className="overflow-y-auto"
@@ -13,4 +15,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

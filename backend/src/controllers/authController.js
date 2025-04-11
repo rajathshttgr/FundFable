@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import { createUserService } from "../models/userModel.js";
 import { findUserByEmail } from "../models/userModel.js";
 import { findUserByUsername } from "../models/userModel.js";
+import { createPublicProfileService } from "../models/profileModel.js";
+import { newTransactionService } from "../models/profileModel.js";
 
 // Standardized response function
 const handleResponse = (res, status, message, data = null) => {
@@ -30,6 +32,16 @@ export const createUser = async (req, res, next) => {
           { id: user.user_id, username: user.username },
           process.env.JWT_SECRET,
           { expiresIn: "1h" }
+        );
+        await createPublicProfileService(user.user_id, "", "", "", "", "");
+        await newTransactionService(
+          user.user_id,
+          "FundFable",
+          "FundFable",
+          "instagram",
+          "Welcome to FundFable!",
+          100,
+          true
         );
         handleResponse(res, 201, "Registration successfully", { token });
       } catch (error) {
@@ -113,5 +125,20 @@ export const getUsername = async (req, res) => {
       status: 400,
       message: "Failed to retrieve user data",
     });
+  }
+};
+
+export const getUsernameByToken = async (req, res) => {
+  const authHeader = req.headers.authorization || req.headers.Authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return handleResponse(res, 401, "No token. Authorization denied.");
+  }
+
+  const token = authHeader.split(" ")[1];
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    handleResponse(res, 200, "User data retrieved successfully", decoded);
+  } catch (error) {
+    handleResponse(res, 400, "Invalid or expired token.");
   }
 };

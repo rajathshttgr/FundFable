@@ -1,33 +1,28 @@
 import jwt from "jsonwebtoken";
 
-// Standardized response function
-const handleResponse = (res, status, message, data = null) => {
+// Standardized error response
+const handleError = (res, status, message) => {
   res.status(status).json({
     status,
     message,
-    data,
+    data: null,
   });
 };
 
 export const verifyToken = (req, res, next) => {
-  let token;
-  let authHeader = req.headers.Authorization || req.headers.authorization;
-  if (authHeader && authHeader.startsWith("Bearer")) {
-    token = authHeader.split(" ")[1];
+  const authHeader = req.headers.authorization || req.headers.Authorization;
 
-    if (!token) {
-      handleResponse(res, 401, "No token Autherization denied");
-    }
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return handleError(res, 401, "No token. Authorization denied.");
+  }
 
-    try {
-      const decode = jwt.verify(token, process.env.JWT_SECRET);
-      console.log("the decoded user is: ", decode);
-      handleResponse(res, 201, "Token verified successfully", decode);
-      next();
-    } catch (error) {
-      handleResponse(res, 400, "Token is not Valid");
-    }
-  } else {
-    handleResponse(res, 401, "No token Autherization denied");
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Attach user info to request for downstream use
+    next();
+  } catch (error) {
+    return handleError(res, 400, "Invalid or expired token.");
   }
 };

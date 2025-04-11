@@ -9,10 +9,10 @@ import { useRouter } from "next/navigation";
 import SocialLogin from "@/components/auth/SocialLogin";
 import toast from "react-hot-toast";
 import { BASE_URL } from "../../config.js";
-import AuthContext from "@/contexts/authContext";
+import { useAuth } from "@/contexts/authContext";
 
 export default function Page() {
-  const { register } = useContext(AuthContext);
+  const { register } = useAuth();
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");

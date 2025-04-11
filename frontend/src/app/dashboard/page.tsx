@@ -2,9 +2,11 @@
 import React from "react";
 import { ProfileSummary } from "@/components/dashboard/profileSummary";
 import { RecentPayments } from "@/components/dashboard/recentPayments";
+import { useAuth } from "@/contexts/authContext";
 
-const page = () => {
-  const username = "rajathshttgr";
+const Page = () => {
+  const { username } = useAuth();
+
   return (
     <>
       <div
@@ -18,4 +20,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
