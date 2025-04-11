@@ -11,7 +11,13 @@ import { BASE_URL_USER } from "@/config";
 import { BASE_URL } from "@/config";
 import axios from "axios";
 
-export default function Page({ params }: { params: { creator: string } }) {
+interface PageProps {
+  params: {
+    creator: string;
+  };
+}
+
+export default function Page({ params }: PageProps) {
   const { creator } = params;
   const [isLoading, setIsLoading] = useState(true);
   const [creatorexists, setCreatorexist] = useState(true);
