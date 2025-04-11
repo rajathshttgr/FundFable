@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { use, useState, useEffect } from "react";
 import Image from "next/image";
 import logo from "../../../assets/icons/coffee-cup-logo.png";
 import { ProfileCard } from "@/components/userComponents/ProfileCard";
@@ -11,17 +12,11 @@ import { BASE_URL_USER } from "@/config";
 import { BASE_URL } from "@/config";
 import axios from "axios";
 
-interface PageProps {
-  params: {
-    creator: string;
-  };
-}
-
-export default function Page({ params }: PageProps) {
-  const { creator } = params;
+export default function Page({ params }: { params: { creator: string } }) {
   const [isLoading, setIsLoading] = useState(true);
   const [creatorexists, setCreatorexist] = useState(true);
   const [name, setName] = useState("");
+  const { creator } = use(params);
 
   useEffect(() => {
     setIsLoading(true);
