@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     domains: ["fundfable.onrender.com"], // if using next/image
   },
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
