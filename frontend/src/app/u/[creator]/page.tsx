@@ -16,7 +16,9 @@ export default function Page({ params }: { params: { creator: string } }) {
   const [isLoading, setIsLoading] = useState(true);
   const [creatorexists, setCreatorexist] = useState(true);
   const [name, setName] = useState("");
-  const { creator } = use(params);
+
+  // Directly accessing creator from params (no need for 'use' hook)
+  const { creator } = params;
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,7 +42,7 @@ export default function Page({ params }: { params: { creator: string } }) {
     };
 
     fetchData();
-  }, []);
+  }, [creator]); // Dependency on 'creator' to refetch data when it changes
 
   const sharepage = () => {
     if (navigator.share) {
@@ -58,13 +60,11 @@ export default function Page({ params }: { params: { creator: string } }) {
   };
 
   return isLoading ? (
-    <>
-      <div className="flex items-center justify-center min-h-screen">
-        <Image src={loading} width={300} height={300} alt="Loading..." />
-      </div>
-    </>
+    <div className="flex items-center justify-center min-h-screen">
+      <Image src={loading} width={300} height={300} alt="Loading..." />
+    </div>
   ) : creatorexists ? (
-    <>
+    <div>
       <header className="flex justify-between px-6 border-b border-gray-200 bg-white fixed top-0 left-0 right-0">
         <div
           className="flex cursor-pointer"
@@ -100,7 +100,7 @@ export default function Page({ params }: { params: { creator: string } }) {
           <CheckoutCard creator={creator} />
         </div>
       </div>
-    </>
+    </div>
   ) : (
     <ErrorPage />
   );
