@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["fundfable.onrender.com"], // if using next/image
+  },
+  reactStrictMode: true,
 };
 
 export default nextConfig;
