@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { use, useState, useEffect } from "react";
 import Image from "next/image";
 import logo from "../../../assets/icons/coffee-cup-logo.png";
 import { ProfileCard } from "@/components/userComponents/ProfileCard";
@@ -7,15 +8,21 @@ import { CheckoutCard } from "@/components/userComponents/CheckoutCard";
 import { RiShare2Line } from "react-icons/ri";
 import loading from "../../../assets/backgrounds/loading.gif";
 import { ErrorPage } from "../../../components/userComponents/ErrorPage";
-import { BASE_URL_USER, BASE_URL } from "@/config";
+import { BASE_URL_USER } from "@/config";
+import { BASE_URL } from "@/config";
 import axios from "axios";
 
-// The page will automatically get the 'creator' from the dynamic route parameter '[creator]'
-export default function Page({ params }: { params: { creator: string } }) {
+interface PageProps {
+  params: {
+    creator: string;
+  };
+}
+
+export default function Page({ params }: PageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [creatorexists, setCreatorexist] = useState(true);
   const [name, setName] = useState("");
-  const { creator } = params; // Destructure params here to access 'creator'
+  const { creator } = use(params);
 
   useEffect(() => {
     setIsLoading(true);
@@ -39,7 +46,7 @@ export default function Page({ params }: { params: { creator: string } }) {
     };
 
     fetchData();
-  }, [creator]); // Dependency on 'creator' so it re-fetches when 'creator' changes
+  }, []);
 
   const sharepage = () => {
     if (navigator.share) {
@@ -57,11 +64,13 @@ export default function Page({ params }: { params: { creator: string } }) {
   };
 
   return isLoading ? (
-    <div className="flex items-center justify-center min-h-screen">
-      <Image src={loading} width={300} height={300} alt="Loading..." />
-    </div>
+    <>
+      <div className="flex items-center justify-center min-h-screen">
+        <Image src={loading} width={300} height={300} alt="Loading..." />
+      </div>
+    </>
   ) : creatorexists ? (
-    <div>
+    <>
       <header className="flex justify-between px-6 border-b border-gray-200 bg-white fixed top-0 left-0 right-0">
         <div
           className="flex cursor-pointer"
@@ -74,7 +83,7 @@ export default function Page({ params }: { params: { creator: string } }) {
         </div>
 
         <div className="flex">
-          <div className="my-4 mx-1">
+          <div className=" my-4 mx-1">
             <div
               className="flex p-2 mx-2 rounded-md shadow border border-amber-400 hover:bg-amber-400 cursor-pointer"
               onClick={sharepage}
@@ -97,7 +106,7 @@ export default function Page({ params }: { params: { creator: string } }) {
           <CheckoutCard creator={creator} />
         </div>
       </div>
-    </div>
+    </>
   ) : (
     <ErrorPage />
   );
