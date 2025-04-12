@@ -1,6 +1,4 @@
-"use client";
-import React from "react";
-import { use, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import logo from "../../../assets/icons/coffee-cup-logo.png";
 import { ProfileCard } from "@/components/userComponents/ProfileCard";
@@ -8,17 +6,14 @@ import { CheckoutCard } from "@/components/userComponents/CheckoutCard";
 import { RiShare2Line } from "react-icons/ri";
 import loading from "../../../assets/backgrounds/loading.gif";
 import { ErrorPage } from "../../../components/userComponents/ErrorPage";
-import { BASE_URL_USER } from "@/config";
-import { BASE_URL } from "@/config";
+import { BASE_URL_USER, BASE_URL } from "@/config";
 import axios from "axios";
 
 export default function Page({ params }: { params: { creator: string } }) {
   const [isLoading, setIsLoading] = useState(true);
   const [creatorexists, setCreatorexist] = useState(true);
   const [name, setName] = useState("");
-
-  // Directly accessing creator from params (no need for 'use' hook)
-  const { creator } = params;
+  const { creator } = params; // Directly use params without any async logic
 
   useEffect(() => {
     setIsLoading(true);
@@ -42,7 +37,7 @@ export default function Page({ params }: { params: { creator: string } }) {
     };
 
     fetchData();
-  }, [creator]); // Dependency on 'creator' to refetch data when it changes
+  }, [creator]); // Dependency on 'creator'
 
   const sharepage = () => {
     if (navigator.share) {
@@ -77,7 +72,7 @@ export default function Page({ params }: { params: { creator: string } }) {
         </div>
 
         <div className="flex">
-          <div className=" my-4 mx-1">
+          <div className="my-4 mx-1">
             <div
               className="flex p-2 mx-2 rounded-md shadow border border-amber-400 hover:bg-amber-400 cursor-pointer"
               onClick={sharepage}
