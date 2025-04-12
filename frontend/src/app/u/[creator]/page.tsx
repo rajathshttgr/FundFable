@@ -10,11 +10,12 @@ import { ErrorPage } from "../../../components/userComponents/ErrorPage";
 import { BASE_URL_USER, BASE_URL } from "@/config";
 import axios from "axios";
 
+// The page will automatically get the 'creator' from the dynamic route parameter '[creator]'
 export default function Page({ params }: { params: { creator: string } }) {
   const [isLoading, setIsLoading] = useState(true);
   const [creatorexists, setCreatorexist] = useState(true);
   const [name, setName] = useState("");
-  const { creator } = params; // Directly use params without any async logic
+  const { creator } = params; // Destructure params here to access 'creator'
 
   useEffect(() => {
     setIsLoading(true);
@@ -38,7 +39,7 @@ export default function Page({ params }: { params: { creator: string } }) {
     };
 
     fetchData();
-  }, [creator]); // Dependency on 'creator'
+  }, [creator]); // Dependency on 'creator' so it re-fetches when 'creator' changes
 
   const sharepage = () => {
     if (navigator.share) {
