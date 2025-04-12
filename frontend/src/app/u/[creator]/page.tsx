@@ -22,7 +22,7 @@ export default function Page({ params }: PageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [creatorexists, setCreatorexist] = useState(true);
   const [name, setName] = useState("");
-  const { creator } = use(params);
+  const { creator } = params;
 
   useEffect(() => {
     setIsLoading(true);
