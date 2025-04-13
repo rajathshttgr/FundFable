@@ -65,7 +65,7 @@ interface RecentPaymentsProps {
 }
 
 export const RecentPayments = ({ username }: RecentPaymentsProps) => {
-  const [recentPayments, setRecentPayments] = useState([]);
+  const [recentPayments, setRecentPayments] = useState<PaymentsCardProps[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {

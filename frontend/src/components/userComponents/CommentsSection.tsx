@@ -47,9 +47,15 @@ const CommentCard = ({
   );
 };
 
-export const CommentSection = ({ creator }) => {
+interface CommentSectionProps {
+  creator: string;
+}
+
+export const CommentSection = ({ creator }: CommentSectionProps) => {
   console.log(creator);
-  const [recentComments, setRecentComments] = useState([]);
+  const [recentComments, setRecentComments] = useState<
+    { supporter_name: string; supporter_message: string; amount: number }[]
+  >([]);
 
   useEffect(() => {
     const fetchData = async () => {

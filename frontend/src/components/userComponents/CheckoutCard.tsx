@@ -8,7 +8,11 @@ import { BASE_URL } from "@/config";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-export const CheckoutCard = ({ creator }) => {
+interface CheckoutCardProps {
+  creator: string;
+}
+
+export const CheckoutCard = ({ creator }: CheckoutCardProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [creatorId, setCreatorId] = useState("");
@@ -40,7 +44,7 @@ export const CheckoutCard = ({ creator }) => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setIsLoading(true);

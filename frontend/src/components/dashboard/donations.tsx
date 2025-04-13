@@ -72,7 +72,7 @@ interface DonationsProps {
 }
 
 export const Donations = ({ username }: DonationsProps) => {
-  const [recentPayments, setRecentPayments] = useState([]);
+  const [recentPayments, setRecentPayments] = useState<PaymentsCardProps[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
