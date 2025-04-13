@@ -18,6 +18,31 @@ For an in-depth article about the system design of this project, check out the M
 
 ![Creator Page](img/Creator-Page.png)
 
+## Tech Stack
+
+### Frontend:
+
+- **React.js / Next.js** – For UI and SSR support.
+- **Tailwind CSS** – For styling.
+- **Redux / Context API** – For state management.
+
+### Backend:
+
+- **Node.js + Express.js** – For handling API requests.
+- **Stripe / Razorpay API** – For handling payments.
+- **Redis** – For caching recent transactions.
+- **RabbitMQ / Kafka** – For async processing (e.g., emails, payouts).
+
+### Database:
+
+- **PostgreSQL** – For structured data (users, transactions).
+
+### Hosting & Infrastructure:
+
+- **AWS / Vercel / Render** – For hosting.
+- **Docker + Kubernetes** – For scalability.
+- **Cloudflare / AWS CloudFront** – For CDN & security.
+
 ## Steps to Clone, Install, and Run the App
 
 ### 1. Clone the Repository
