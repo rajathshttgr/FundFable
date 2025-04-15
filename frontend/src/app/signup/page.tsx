@@ -132,7 +132,7 @@ export default function Page() {
                 Choose a username for your page.
               </p>
               <div
-                className={`flex px-2 m-2 mt-4 h-12 w-96 sm:w-80 lg:w-1/2 bg-gray-200 rounded-xl focus-within:ring-1 ${
+                className={`flex px-2 m-2 mt-4 h-12 w-90 sm:w-80 lg:w-1/2 bg-gray-200 rounded-xl focus-within:ring-1 ${
                   isValid === true
                     ? "focus-within:ring-green-500"
                     : isValid === false
@@ -140,15 +140,15 @@ export default function Page() {
                     : "focus-within:ring-black"
                 }`}
               >
-                <p className="py-3 pl-1">fundfable.com/u/</p>
+                <p className="py-3 shrink-0">fund-fable.vercel.app/u/</p>
                 <input
                   type="text"
                   placeholder="username"
-                  className="outline-none bg-transparent ml-1"
+                  className="outline-none bg-transparent ml-1 w-full"
                   value={username}
                   onChange={(e) => setUsername(e.target.value.toLowerCase())}
                 />
-                <div className="py-3 ml-auto">
+                <div className="py-3">
                   {isLoading ? (
                     <ImSpinner8 className="animate-spin text-black h-5 w-5" />
                   ) : isValid === true ? (
@@ -162,12 +162,12 @@ export default function Page() {
 
               <div className="sm:hidden flex flex-col justify-between border-gray-200 mt-8">
                 <button
-                  className="bg-amber-300 hover:bg-amber-400 h-12 p-2 w-96 rounded-3xl ml-2 cursor-pointer"
+                  className="bg-amber-300 hover:bg-amber-400 h-12 p-2 w-90 rounded-3xl ml-2 cursor-pointer"
                   onClick={handleClick}
                 >
                   Sign Up
                 </button>
-                <p className="text-gray-600 text-md text-center mt-4">
+                <p className="text-gray-600 text-md text-center mt-4 m-2">
                   By continuing, you agree to the{" "}
                   <span className="text-black underline hover:no-underline cursor-pointer">
                     terms of service
@@ -182,18 +182,18 @@ export default function Page() {
             {/*Username validation end */}
 
             {/* signup page */}
-            <div className={`${signupForm ? "" : "hidden"}`}>
+            <div className={`${signupForm ? "w-90" : "hidden"}`}>
               <form
-                className="flex flex-col sm:mt-10 mt-2"
+                className="flex flex-col sm:mt-10 mt-2 "
                 ref={formRef}
                 onSubmit={handleSubmit}
               >
-                <h1 className="pl-4 font-bold text-2xl my-4">
+                <h1 className="pl-4 font-bold text-2xl my-4 ">
                   Welcome to FundFable!
                 </h1>
                 <input
                   type="text"
-                  className="w-96 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
+                  className="w-90 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
                   placeholder="Name"
                   value={fullname}
                   onChange={(e) => setFullname(e.target.value)}
@@ -201,7 +201,7 @@ export default function Page() {
                 />
                 <input
                   type="email"
-                  className={`w-96 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm ${
+                  className={`w-90 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm ${
                     isValid ? "" : "border-red-500 border"
                   }`}
                   placeholder="Email"
@@ -211,14 +211,14 @@ export default function Page() {
                 />
                 <input
                   type="password"
-                  className="w-96 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
+                  className="w-90 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </form>
-              <div className="flex mt-2 w-96 m-2">
+              <div className="flex mt-2 w-90 m-2">
                 <hr className="w-full border-t border-gray-300 mt-3 m-1" />
                 <p className="text-sm font-extralight text-gray-500 m-1">OR</p>
                 <hr className="w-full border-t border-gray-300 mt-3 m-1" />
@@ -226,12 +226,12 @@ export default function Page() {
               <SocialLogin />
               <div className="sm:hidden flex flex-col justify-between border-gray-200 mt-8">
                 <button
-                  className="bg-amber-300 hover:bg-amber-400 h-12 p-2 w-96 rounded-3xl ml-2 cursor-pointer"
+                  className="bg-amber-300 hover:bg-amber-400 h-12 p-2 w-90 rounded-3xl ml-2 cursor-pointer"
                   onClick={handleClick}
                 >
                   Sign Up
                 </button>
-                <p className="text-gray-600 text-md text-center mt-4">
+                <p className="text-gray-600 text-md text-center mt-4 m-4">
                   By continuing, you agree to the{" "}
                   <span className="text-black underline hover:no-underline cursor-pointer">
                     terms of service

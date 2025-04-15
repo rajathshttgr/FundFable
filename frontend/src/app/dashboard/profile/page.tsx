@@ -129,7 +129,7 @@ const Page = () => {
             <div className="hidden sm:block">
               <p className="mt-6 p-2 border rounded-lg font-medium hover:bg-amber-400 hover:text-white border-amber-400 cursor-pointer ">
                 <a
-                  href={`https://${BASE_URL_USER}/u/${username}`}
+                  href={`${BASE_URL_USER}/u/${username}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex"

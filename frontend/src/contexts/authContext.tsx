@@ -138,7 +138,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       setTimeout(() => {
         router.push("/dashboard");
-      }, 100);
+      }, 10);
     } catch (error) {
       console.error("Register Error:", error);
       toast.error("Registration Failed");

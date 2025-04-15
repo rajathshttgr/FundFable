@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 //routes
 app.use("/api/auth", authRoutes);
-app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/dashboard", verifyToken, dashboardRoutes);
 app.use("/api/profile", profileRoutes);
 
 //Error Handling Middleware

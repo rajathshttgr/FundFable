@@ -34,13 +34,13 @@ export default function Page() {
         </p>
       </header>
       <div className=" flex items-centerflex justify-center items-center pb-16">
-        <div className="w-[380px] text-2xl text-center font-bold mt-12">
+        <div className="w-[380px] text-2xl text-center font-bold mt-12 ">
           <div className="mb-6">Welcome back</div>
           <div>
             <form onSubmit={handleSubmit}>
               <input
                 type="email"
-                className="w-96 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
+                className="w-90 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -48,18 +48,18 @@ export default function Page() {
               />
               <input
                 type="password"
-                className="w-96 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
+                className="w-90 h-12 bg-gray-200 m-3 p-4 rounded-md text-black font-light text-sm"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <button className="bg-amber-300 w-96 h-12 rounded-3xl m-2 mt-6 shadow font-medium text-white cursor-pointer hover:bg-amber-400">
+              <button className="bg-amber-300 w-90 h-12 rounded-3xl m-2 mt-6 shadow font-medium text-white cursor-pointer hover:bg-amber-400">
                 login
               </button>
             </form>
           </div>
-          <div className="flex mt-2 w-96 m-2">
+          <div className="flex mt-2 w-90 m-2">
             <hr className="w-full border-t border-gray-300 mt-3 m-1" />
             <p className="text-sm font-extralight text-gray-500 m-1">OR</p>
             <hr className="w-full border-t border-gray-300 mt-3 m-1" />
